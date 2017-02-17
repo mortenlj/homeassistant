@@ -1,7 +1,8 @@
 dep 'main' do
   requires 'nano.bin',
            'docker',
-           'autoupdate'
+           'autoupdate',
+           'services'
 end
 
 dep 'nano.bin'

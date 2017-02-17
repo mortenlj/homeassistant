@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  whoami:
+    image: homeassistant
+    networks:
+      - web
+    labels:
+      - "traefik.backend=homeassistant"
+      - "traefik.frontend.rule=Host:homeassistant"
+
+networks:
+  web:
+    external:
+      name: traefik_webgateway
