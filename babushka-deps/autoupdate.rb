@@ -5,7 +5,7 @@ dep 'autoupdate' do
     '/etc/apt/apt.conf.d/20auto-upgrades'.p.exists?
   }
   meet {
-    shell 'dpkg-reconfigure -plow unattended-upgrades'
+    shell 'dpkg-reconfigure -plow unattended-upgrades', :sudo => true
   }
 end
 
