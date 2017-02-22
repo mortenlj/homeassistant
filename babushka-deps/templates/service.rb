@@ -19,4 +19,3 @@ def template_file(fname)
 end
 
 SERVICE_ROOT = '/etc/systemd/system'
-TEMPLATE_ROOT = "#{File.dirname(__FILE__)}/../renderables"

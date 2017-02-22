@@ -21,4 +21,3 @@ def template_file(fname)
 end
 
 COMPOSE_LOCATION = '/var/lib/docker-compose'
-TEMPLATE_ROOT = "#{File.dirname(__FILE__)}/../renderables"
