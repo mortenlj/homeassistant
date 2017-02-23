@@ -7,4 +7,4 @@ end
 
 dep 'nano.bin'
 
-TEMPLATE_ROOT = "#{File.dirname(__FILE__)}/../renderables"
+TEMPLATE_ROOT = "#{File.dirname(__FILE__)}/renderables"
