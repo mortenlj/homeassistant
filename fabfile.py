@@ -6,13 +6,15 @@ import os
 import tempfile
 from fnmatch import fnmatch
 
-from fabric.api import task, local, env, cd
+from fabric.api import task, local, env, cd, runs_once, execute
 from fabric.utils import error
 from fabric.operations import put, run, sudo
 from fabric.context_managers import quiet
+from fabric.contrib.files import append
 
 # Download kernel from https://github.com/dhruvvyas90/qemu-rpi-kernel/blob/master/kernel-qemu-4.4.34-jessie
 # Download img from https://blog.hypriot.com/downloads/
+# Adjust image according to https://blogs.msdn.microsoft.com/iliast/2016/11/10/how-to-emulate-raspberry-pi/
 
 BABUSHKA_REPO = "https://github.com/mortenlj/babushka.git -bpatch-1"
 LOCAL_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -39,7 +41,8 @@ def _executable(exe, use_sudo=False):
 
 
 def _is_not_root():
-    return run("whoami") != "root"
+    with quiet():
+        return run("whoami") != "root"
 
 
 @task
@@ -52,16 +55,23 @@ def start_vm():
                 kernel, image
                 ))
 
+@task
+@runs_once
+def install_ssh_key():
+    key = local("ssh-add -L | grep ibidem", capture=True).strip()
+    append("~/.ssh/authorized_keys", key)
+    
 
 @task
 def deploy_code():
+    execute(install_ssh_key)
     tar_file = "%s.tar.gz" % LOCAL_NAME
     target_tar = os.path.join("/tmp", tar_file)
     tmp_folder = tempfile.mkdtemp()
 
     try:
         tar_path = os.path.join(tmp_folder, tar_file)
-        local("tar -czf %s --exclude=dev-tools --exclude-vcs-ignores -C %s %s" % (tar_path, LOCAL_PATH, LOCAL_NAME))
+        local("tar -czf %s --exclude=dev-tools --exclude-vcs-ignores --exclude-vcs -C %s %s" % (tar_path, LOCAL_PATH, LOCAL_NAME))
         put(tar_path, target_tar)
         with cd("/tmp"):
             try:
@@ -75,6 +85,7 @@ def deploy_code():
 
 @task
 def babushka(reinstall=False):
+    execute(install_ssh_key)
     remote_dir = os.path.join("/tmp", LOCAL_NAME)
     with cd(remote_dir):
         if _is_not_root() and (not _executable("sudo")):
