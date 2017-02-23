@@ -103,4 +103,4 @@ def babushka(reinstall=False):
                 sudo("ln -sf /opt/babushka/bin/babushka.rb babushka")
             if not _executable("babushka"):
                 error("Failed to install babushka!")
-        run("babushka main")
+        sudo("babushka main")
