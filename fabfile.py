@@ -6,6 +6,7 @@ import os
 import tempfile
 from fnmatch import fnmatch
 
+import time
 from fabric.api import task, local, env, cd, runs_once, execute
 from fabric.utils import error
 from fabric.operations import put, run, sudo
@@ -50,9 +51,12 @@ def start_vm():
     if "test" in env.effective_roles:
         kernel = _find_file("kernel-qemu*")
         image = _find_file("hypriotos-rpi-*.img")
-        local('qemu-system-arm -kernel {} -cpu arm1176 -m 256 -M versatilepb -no-reboot -daemonize'
+        local('qemu-system-arm -kernel {} -cpu arm1176 -m 256 -M versatilepb -daemonize'
               ' -append "root=/dev/sda2 panic=1 rootfstype=ext4 rw" -redir tcp:5022::22 -redir tcp:5080::80'
               ' -redir tcp:5081::8080 -drive file={},format=raw'.format(kernel, image))
+    time.sleep(60)
+    execute(install_ssh_key)
+    sudo("apt-get update")
 
 
 @task
@@ -98,7 +102,7 @@ def babushka(reinstall=False):
             with quiet():
                 sudo("rm -rf /opt/babushka")
             sudo("mkdir -p /opt")
-            sudo("git clone {} /opt/babushka".format(BABUSHKA_REPO))
+            sudo("git clone {} /opt/babushka --depth 1".format(BABUSHKA_REPO))
             with cd("/usr/local/bin"):
                 sudo("ln -sf /opt/babushka/bin/babushka.rb babushka")
             if not _executable("babushka"):

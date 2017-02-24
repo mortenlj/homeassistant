@@ -1,6 +1,7 @@
 # Creates a config file for docker-compose in a suitable location
 meta :compose do
   template {
+    requires 'docker-compose directory'
     base, _, _ = name.rpartition('.')
     fname = "#{base}.yml"
     met? {
