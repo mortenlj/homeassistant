@@ -1,8 +1,8 @@
 version: '2'
 
 services:
-  whoami:
-    image: homeassistant
+  homeassistant:
+    image: homeassistant:latest
     networks:
       - web
     labels:

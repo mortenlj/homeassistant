@@ -51,9 +51,9 @@ def start_vm():
         kernel = _find_file("kernel-qemu*")
         image = _find_file("hypriotos-rpi-*.img")
         local('qemu-system-arm -kernel {} -cpu arm1176 -m 256 -M versatilepb -no-reboot -daemonize'
-              ' -append "root=/dev/sda2 panic=1 rootfstype=ext4 rw" -redir tcp:5022::22 -drive file={},format=raw'.format(
-                kernel, image
-                ))
+              ' -append "root=/dev/sda2 panic=1 rootfstype=ext4 rw" -redir tcp:5022::22 -redir tcp:5080::80'
+              ' -redir tcp:5081::8080 -drive file={},format=raw'.format(kernel, image))
+
 
 @task
 @runs_once

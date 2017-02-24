@@ -1,5 +1,4 @@
-#FROM hypriot/rpi-alpine-scratch
-FROM alpine
+FROM hypriot/rpi-alpine:3.5
 
 RUN apk update && \
     apk upgrade && \

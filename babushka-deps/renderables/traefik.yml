@@ -2,7 +2,7 @@ version: '2'
 
 services:
   proxy:
-    image: traefik
+    image: hypriot/rpi-traefik:v1.1.2
     command: --web --docker --logLevel=DEBUG
     networks:
       - webgateway

@@ -2,10 +2,33 @@
 meta :service do
   template {
     met? {
-      service_file(name).p.exists?
+      p = service_file(name).p
+      p.exists? && p.read == template_file(name).p.read
     }
     meet {
       template_file(name).p.copy service_file(name)
+    }
+  }
+end
+
+meta :enable do
+  template {
+    met? {
+      shell? "systemctl is-enabled #{basename}.service", :sudo => true
+    }
+    meet {
+      shell "systemctl enable #{basename}.service", :sudo => true
+    }
+  }
+end
+
+meta :start do
+  template {
+    met? {
+      raw_shell("systemctl is-active #{basename}.service", :sudo => true).stdout.strip == 'active'
+    }
+    meet {
+      shell "systemctl start #{basename}.service", :sudo => true
     }
   }
 end

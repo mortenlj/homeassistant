@@ -4,7 +4,8 @@ meta :compose do
     base, _, _ = name.rpartition('.')
     fname = "#{base}.yml"
     met? {
-      compose_file(fname).p.exists?
+      p = compose_file(fname).p
+      p.exists? && p.read == template_file(fname).p.read
     }
     meet {
       template_file(fname).p.copy compose_file(fname)
