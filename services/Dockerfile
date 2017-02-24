@@ -9,4 +9,4 @@ RUN apk update && \
 RUN pip3 install homeassistant
 
 EXPOSE 8123
-CMD ["/usr/bin/hass", "--demo-mode"]
+CMD ["/usr/bin/hass", "--demo-mode", "--debug"]

@@ -18,3 +18,13 @@ dep 'docker-compose directory' do
     shell 'mkdir -p /var/lib/docker-compose', :sudo => true
   }
 end
+
+dep 'docker login', :password do
+  password.ask('Docker password?')
+  met? {
+    raw_shell('docker info').stdout.include? 'Username: mortenlj'
+  }
+  meet {
+    shell "docker login -u mortenlj -p #{password}"
+  }
+end

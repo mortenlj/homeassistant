@@ -2,7 +2,7 @@ version: '2'
 
 services:
   home-assistant:
-    image: home-assistant:latest
+    image: mortenlj/home-assistant-rpi:latest
     networks:
       - web
     labels:

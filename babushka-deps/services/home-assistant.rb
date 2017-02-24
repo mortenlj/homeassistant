@@ -20,10 +20,11 @@ dep 'home-assistant.compose' do
 end
 
 dep 'home-assistant.docker-build' do
+  requires 'docker login'
   met? {
-    !raw_shell('docker images home-assistant -q').stdout.empty?
+    !raw_shell('docker images mortenlj/home-assistant-rpi -q').stdout.empty?
   }
   meet {
-    shell 'docker build -t home-assistant .', :cd => File.join(CODE_ROOT, 'services'), :spinner => true
+    shell 'docker pull mortenlj/home-assistant-rpi', :spinner => true
   }
 end

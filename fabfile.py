@@ -7,10 +7,10 @@ import tempfile
 from fnmatch import fnmatch
 
 import time
-from fabric.api import task, local, env, cd, runs_once, execute
+from fabric.api import task, local, env, runs_once, execute
 from fabric.utils import error
 from fabric.operations import put, run, sudo
-from fabric.context_managers import quiet
+from fabric.context_managers import quiet, cd, lcd
 from fabric.contrib.files import append
 
 # Download kernel from https://github.com/dhruvvyas90/qemu-rpi-kernel/blob/master/kernel-qemu-4.4.34-jessie
@@ -65,6 +65,15 @@ def install_ssh_key():
     key = local("ssh-add -L | grep ibidem", capture=True).strip()
     append("~/.ssh/authorized_keys", key)
     
+
+@task
+@runs_once
+def build():
+    with lcd("services"):
+        local("docker run --rm --privileged multiarch/qemu-user-static:register --reset")
+        local("docker build -t mortenlj/home-assistant-rpi .")
+        local("docker push mortenlj/home-assistant-rpi")
+
 
 @task
 def deploy_code():
