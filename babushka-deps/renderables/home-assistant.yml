@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  home-assistant:
+    image: home-assistant:latest
+    networks:
+      - web
+    labels:
+      - "traefik.backend=home-assistant"
+      - "traefik.frontend.rule=Host:home-assistant"
+
+networks:
+  web:
+    external:
+      name: traefik_webgateway

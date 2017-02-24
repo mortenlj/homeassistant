@@ -1,0 +1,14 @@
+[Unit]
+Description=Home Assistant
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+RestartSec=3
+ExecStart=/usr/local/bin/docker-compose -f /var/lib/docker-compose/home-assistant.yml -p home-assistant up --no-color --no-build --abort-on-container-exit
+ExecStop=/usr/local/bin/docker-compose -f /var/lib/docker-compose/home-assistant.yml -p home-assistant down
+ExecStopPost=/usr/local/bin/docker-compose -f /var/lib/docker-compose/home-assistant.yml -p home-assistant rm
+
+[Install]
+WantedBy=multi-user.target

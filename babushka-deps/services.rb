@@ -1,4 +1,4 @@
 dep 'services' do
   requires 'traefik',
-           'homeassistant'
+           'home-assistant'
 end
