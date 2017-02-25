@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-docker run --rm --privileged multiarch/qemu-user-static:register --reset
-docker build -t mortenlj/home-assistant-rpi .
-docker push mortenlj/home-assistant-rpi

@@ -1,0 +1,50 @@
+homeassistant:
+  # Omitted values in this section will be auto detected using freegeoip.io
+
+  # Location required to calculate the time the sun rises and sets
+  latitude: 59.86972
+  longitude: 10.81467
+
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 160
+
+  # 'metric' for Metric, 'imperial' for Imperial
+  unit_system: metric
+
+  # Pick yours from here:
+  # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Oslo
+
+  # Name of the location where Home Assistant is running
+  name: Home
+discovery:
+frontend:
+updater:
+  reporting: False
+sensor:
+  - platform: yahoo_finance
+    symbols:
+      - TSLA
+      - FUNCOM.OL
+      - SCHA.OL
+  - platform: systemmonitor
+    resources:
+      - type: memory_use
+      - type: memory_free
+      - type: load_1m
+      - type: load_5m
+      - type: load_15m
+  - platform: yr
+    monitored_conditions:
+      - symbol
+      - temperature
+      - precipitation
+      - windSpeed
+      - windDirection
+media_player:
+  - platform: cast
+#cover:
+#  - platform: rpi_gpio
+#    covers:
+#      - relay_pin: 10
+#        state_pin: 11
