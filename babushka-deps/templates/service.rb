@@ -8,6 +8,10 @@ meta :service do
     meet {
       template_file(name).p.copy service_file(name)
     }
+    after {
+      shell "systemctl stop #{basename}.service", :sudo => true
+      shell "systemctl disable #{basename}.service", :sudo => true
+    }
   }
 end
 
