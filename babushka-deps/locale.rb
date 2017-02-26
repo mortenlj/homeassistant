@@ -15,7 +15,7 @@ dep 'locale.gen nb_NO' do
     '/etc/locale.gen'.p.grep(/^nb_NO\.UTF-8 UTF-8/)
   }
   meet {
-    '/etc/locale.gen'.p.append('nb_NO.UTF-8 UTF-8')
+    '/etc/locale.gen'.p.append("nb_NO.UTF-8 UTF-8\n")
   }
 end
 
@@ -24,6 +24,6 @@ dep 'locale.gen en_US' do
     '/etc/locale.gen'.p.grep(/^en_US\.UTF-8 UTF-8/)
   }
   meet {
-    '/etc/locale.gen'.p.append('en_US.UTF-8 UTF-8')
+    '/etc/locale.gen'.p.append("en_US.UTF-8 UTF-8\n")
   }
 end
