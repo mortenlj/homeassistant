@@ -1,13 +1,7 @@
 FROM hypriot/rpi-alpine:3.5
 
-RUN apk update && \
-    apk upgrade && \
-    apk add bash && \
-    apk add python3 && \
-    apk add ca-certificates && \
-    rm -rf /var/cache/apk/*
-
-RUN pip3 install homeassistant
+COPY install.sh /
+RUN /install.sh
 
 RUN mkdir -p /home-assistant
 COPY configuration.yaml /home-assistant/
