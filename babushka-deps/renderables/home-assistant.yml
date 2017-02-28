@@ -1,4 +1,4 @@
-version: '2'
+version: "2.1"
 
 services:
   home-assistant:
@@ -8,6 +8,10 @@ services:
     labels:
       - "traefik.backend=home-assistant"
       - "traefik.frontend.rule=Host:home-assistant"
+    cap_add:
+      - "SYS_RAWIO"
+    devices:
+      - "/dev/mem"
 
 networks:
   web:
