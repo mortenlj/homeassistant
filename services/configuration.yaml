@@ -17,7 +17,6 @@ homeassistant:
 
   # Name of the location where Home Assistant is running
   name: Home
-discovery:
 frontend:
 updater:
   reporting: False
@@ -41,10 +40,17 @@ sensor:
       - precipitation
       - windSpeed
       - windDirection
-media_player:
-  - platform: cast
-#cover:
-#  - platform: rpi_gpio
-#    covers:
-#      - relay_pin: 10
-#        state_pin: 11
+cover:
+  - platform: rpi_gpio
+    covers:
+      - relay_pin: 10
+        state_pin: 11
+        name: Garasjen
+device_tracker:
+  - platform: ddwrt
+    host: 192.168.1.1
+    username: admin
+    password: !secret router_password
+    track_new_devices: False
+    interval_seconds: 60
+    

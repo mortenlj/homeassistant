@@ -14,9 +14,8 @@ apk add --virtual .build-deps build-base linux-headers python3-dev
 
 pip3 install homeassistant
 
-ha_req "homeassistant.components.media_player.cast"
-ha_req "homeassistant.components.discovery"
 ha_req "homeassistant.components.sensor.systemmonitor"
+ha_req "homeassistant.components.rpi_gpio"
 
 apk del .build-deps
 

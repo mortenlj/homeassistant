@@ -97,6 +97,13 @@ def deploy_code():
 
 
 @task
+def rm_docker():
+    execute(install_ssh_key)
+    sudo("systemctl stop home-assistant.service")
+    sudo("docker images mortenlj/home-assistant-rpi -q | xargs docker rmi")
+
+
+@task
 def babushka(reinstall=False):
     execute(install_ssh_key)
     remote_dir = os.path.join("/tmp", LOCAL_NAME)

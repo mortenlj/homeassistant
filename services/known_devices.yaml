@@ -1,0 +1,55 @@
+android4b6c2888bd2df8af:
+  hide_if_away: false
+  mac: 84:55:A5:F4:BB:FE
+  name: Linn
+  picture:
+  track: true
+  vendor: Samsung Electronics Co.,Ltd
+
+android477cc5c7413e351c:
+  hide_if_away: false
+  mac: E8:50:8B:03:E2:97
+  name: Morten
+  picture:
+  track: true
+  vendor: SAMSUNG ELECTRO-MECHANICS(THAILAND)
+
+homeassistant:
+  hide_if_away: false
+  mac: 00:22:C0:1A:46:16
+  name: home-assistant
+  picture:
+  track: false
+  vendor: Shenzhen Forcelink Electronic Co, Ltd
+
+002261c3a9c8:
+  hide_if_away: false
+  mac: 00:22:61:C3:A9:C8
+  name: '*'
+  picture:
+  track: false
+  vendor: Frontier Silicon Ltd
+
+mortensinipad:
+  hide_if_away: false
+  mac: A8:5B:78:CA:5C:90
+  name: Morten-sin-iPad
+  picture:
+  track: false
+  vendor: Apple, Inc.
+
+android41a761fb531035bf:
+  hide_if_away: false
+  mac: 10:30:47:1B:E6:79
+  name: android-41a761fb531035bf
+  picture:
+  track: false
+  vendor: Samsung Electronics Co.,Ltd
+
+fimojohaw530:
+  hide_if_away: false
+  mac: 24:77:03:D2:E3:88
+  name: fimojoha-w530
+  picture:
+  track: false
+  vendor: Intel Corporate

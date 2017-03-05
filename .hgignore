@@ -4,6 +4,8 @@ syntax: glob
 dev-tools/*.img*
 dev-tools/kernel*
 
+services/secrets.yaml
+
 ### Linux template
 *~
 
