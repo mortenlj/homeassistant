@@ -16,7 +16,7 @@ homeassistant:
   time_zone: Europe/Oslo
 
   # Name of the location where Home Assistant is running
-  name: Home
+  name: Hjemme
 frontend:
 updater:
   reporting: False
@@ -43,8 +43,8 @@ sensor:
 cover:
   - platform: rpi_gpio
     covers:
-      - relay_pin: 10
-        state_pin: 11
+      - relay_pin: 14
+        state_pin: 4
         name: Garasjen
 device_tracker:
   - platform: ddwrt
