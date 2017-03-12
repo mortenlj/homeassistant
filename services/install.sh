@@ -16,6 +16,11 @@ pip3 install homeassistant
 
 ha_req "homeassistant.components.sensor.systemmonitor"
 ha_req "homeassistant.components.rpi_gpio"
+ha_req "homeassistant.components.http"
+ha_req "homeassistant.components.sensor.yahoo_finance"
+ha_req "homeassistant.components.sensor.yr"
+ha_req "homeassistant.components.discovery"
+ha_req "homeassistant.components.updater"
 
 apk del .build-deps
 
