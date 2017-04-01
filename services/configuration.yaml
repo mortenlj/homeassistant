@@ -18,6 +18,7 @@ homeassistant:
   # Name of the location where Home Assistant is running
   name: Hjemme
 frontend:
+config:
 updater:
   reporting: False
 sensor:
