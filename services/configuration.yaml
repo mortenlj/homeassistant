@@ -44,7 +44,7 @@ sensor:
 cover:
   - platform: rpi_gpio
     covers:
-      - relay_pin: 14
+      - relay_pin: 17
         state_pin: 4
         name: Garasjen
 device_tracker:
