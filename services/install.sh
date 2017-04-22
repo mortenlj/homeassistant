@@ -12,7 +12,7 @@ apk add python3 ca-certificates yaml
 
 apk add --virtual .build-deps build-base linux-headers python3-dev
 
-pip3 install homeassistant
+pip3 install "homeassistant==${HOME_ASSISTANT_VERSION}"
 
 ha_req "homeassistant.components.sensor.systemmonitor"
 ha_req "homeassistant.components.rpi_gpio"

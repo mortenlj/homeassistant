@@ -3,10 +3,12 @@
 from __future__ import absolute_import, print_function, unicode_literals
 
 import os
+import time
 import tempfile
 from fnmatch import fnmatch
 
-import time
+import requests
+
 from fabric.api import task, local, env, runs_once, execute
 from fabric.utils import error
 from fabric.operations import put, run, sudo
@@ -46,6 +48,14 @@ def _is_not_root():
         return run("whoami") != "root"
 
 
+def _get_homeassistant_version():
+    url = "https://pypi.python.org/pypi/homeassistant/json"
+    resp = requests.get(url)
+    resp.raise_for_status()
+    data = resp.json()
+    return data["info"]["version"]
+
+
 @task
 def start_vm():
     if "test" in env.effective_roles:
@@ -64,14 +74,16 @@ def start_vm():
 def install_ssh_key():
     key = local("ssh-add -L | grep ibidem", capture=True).strip()
     append("~/.ssh/authorized_keys", key)
-    
+
 
 @task
 @runs_once
 def build():
     with lcd("services"):
+        version = _get_homeassistant_version()
         local("docker run --rm --privileged multiarch/qemu-user-static:register --reset")
-        local("docker build -t mortenlj/home-assistant-rpi .")
+        local("docker build --build-arg HOME_ASSISTANT_VERSION={0}"
+              " -t mortenlj/home-assistant-rpi:{0} .".format(version))
         local("docker push mortenlj/home-assistant-rpi")
 
 
