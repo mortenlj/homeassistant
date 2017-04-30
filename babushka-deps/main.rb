@@ -1,16 +1,11 @@
 dep 'main' do
-  requires 'nano.bin',
-           'mlocate.bin',
+  requires 'apps',
            'docker',
            'autoupdate',
            'services',
            'timezone',
-           'locale'
-end
-
-dep 'nano.bin'
-dep 'mlocate.bin' do
-  provides 'locate', 'updatedb'
+           'locale',
+           'network-disks'
 end
 
 TEMPLATE_ROOT = "#{File.dirname(__FILE__)}/renderables"
