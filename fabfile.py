@@ -20,6 +20,7 @@ from fabric.contrib.files import append
 # Adjust image according to https://blogs.msdn.microsoft.com/iliast/2016/11/10/how-to-emulate-raspberry-pi/
 
 BABUSHKA_REPO = "https://github.com/benhoskings/babushka.git"
+BABUSHKA_TAG = "v0.19.1"
 LOCAL_DIR = os.path.abspath(os.path.dirname(__file__))
 LOCAL_PATH, LOCAL_NAME = os.path.split(LOCAL_DIR)
 
@@ -64,9 +65,9 @@ def start_vm():
         local('qemu-system-arm -kernel {} -cpu arm1176 -m 256 -M versatilepb -daemonize --no-reboot --no-shutdown'
               ' -append "root=/dev/sda2 panic=1 rootfstype=ext4 rw" -redir tcp:5022::22 -redir tcp:5080::80'
               ' -redir tcp:5081::8080 -drive file={},format=raw'.format(kernel, image))
-    time.sleep(60)
-    execute(install_ssh_key)
-    sudo("apt-get update")
+        time.sleep(60)
+        execute(install_ssh_key)
+        sudo("apt-get update")
 
 
 @task
@@ -130,7 +131,7 @@ def babushka(reinstall=False):
             with quiet():
                 sudo("rm -rf /opt/babushka")
             sudo("mkdir -p /opt")
-            sudo("git clone {} /opt/babushka --depth 1".format(BABUSHKA_REPO))
+            sudo("git clone {} /opt/babushka --depth 1 --branch {}".format(BABUSHKA_REPO, BABUSHKA_TAG))
             with cd("/usr/local/bin"):
                 sudo("ln -sf /opt/babushka/bin/babushka.rb babushka")
             if not _executable("babushka"):
