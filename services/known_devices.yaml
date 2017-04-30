@@ -1,9 +1,9 @@
 android4b6c2888bd2df8af:
   hide_if_away: false
   mac: 84:55:A5:F4:BB:FE
-  name: Linn
+  name: "Linn (gammel)"
   picture:
-  track: true
+  track: false
   vendor: Samsung Electronics Co.,Ltd
 
 android477cc5c7413e351c:
@@ -25,7 +25,7 @@ homeassistant:
 002261c3a9c8:
   hide_if_away: false
   mac: 00:22:61:C3:A9:C8
-  name: '*'
+  name: "Pinell Supersound"
   picture:
   track: false
   vendor: Frontier Silicon Ltd
@@ -33,7 +33,7 @@ homeassistant:
 mortensinipad:
   hide_if_away: false
   mac: A8:5B:78:CA:5C:90
-  name: Morten-sin-iPad
+  name: iPad
   picture:
   track: false
   vendor: Apple, Inc.
@@ -41,7 +41,7 @@ mortensinipad:
 android41a761fb531035bf:
   hide_if_away: false
   mac: 10:30:47:1B:E6:79
-  name: android-41a761fb531035bf
+  name: "Galaxy Tab"
   picture:
   track: false
   vendor: Samsung Electronics Co.,Ltd
@@ -53,3 +53,43 @@ fimojohaw530:
   picture:
   track: false
   vendor: Intel Corporate
+
+chromecast:
+  hide_if_away: false
+  mac: 6C:AD:F8:79:E5:BC
+  name: "Chromecast 1"
+  picture:
+  track: false
+  vendor: AzureWave Technology Inc.
+
+samsunggalaxys7:
+  hide_if_away: false
+  mac: 8C:F5:A3:A7:15:02
+  name: Linn
+  picture:
+  track: true
+  vendor: SAMSUNG ELECTRO-MECHANICS(THAILAND)
+
+iphone:
+  hide_if_away: false
+  mac: C4:B3:01:0F:9E:12
+  name: "Finn-Arne iPhone"
+  picture:
+  track: false
+  vendor: Apple, Inc.
+
+ragnhiliniphone:
+  hide_if_away: false
+  mac: 54:26:96:83:B8:63
+  name: "Ragnhild iPhone"
+  picture:
+  track: false
+  vendor: Apple, Inc.
+
+chromecast_2:
+  hide_if_away: false
+  mac: A4:77:33:CA:46:6C
+  name: "Chromecast 2"
+  picture:
+  track: false
+  vendor: Google, Inc.

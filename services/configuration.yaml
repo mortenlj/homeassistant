@@ -17,6 +17,37 @@ homeassistant:
 
   # Name of the location where Home Assistant is running
   name: Hjemme
+  customize:
+    cover.garasjen:
+      device_class: garage
+    device_tracker.android477cc5c7413e351c:
+      entity_picture: https://gravatar.com/avatar/47af7ccc79b304ab712dc1389ad1b37c
+    device_tracker.android4b6c2888bd2df8af:
+      entity_picture: https://scontent.cdninstagram.com/t51.2885-19/s150x150/12317410_1536746559949407_1752887742_a.jpg
+group:
+  Folk:
+    entities:
+      - device_tracker.samsunggalaxys7
+      - device_tracker.android477cc5c7413e351c
+  Aksjer:
+    entities:
+      - sensor.funcomol
+      - sensor.schaol
+      - sensor.tsla
+  Vær:
+    entities:
+      - sensor.yr_precipitation
+      - sensor.yr_symbol
+      - sensor.yr_temperature
+      - sensor.yr_wind_direction
+      - sensor.yr_wind_speed
+  System:
+    entities:
+      - sensor.average_load_1m
+      - sensor.average_load_5m
+      - sensor.average_load_15m
+      - sensor.ram_free
+      - sensor.ram_use
 frontend:
 config:
 updater:

@@ -12,7 +12,7 @@ import requests
 from fabric.api import task, local, env, runs_once, execute
 from fabric.utils import error
 from fabric.operations import put, run, sudo
-from fabric.context_managers import quiet, cd, lcd
+from fabric.context_managers import quiet, cd, lcd, shell_env
 from fabric.contrib.files import append
 
 # Download kernel from https://github.com/dhruvvyas90/qemu-rpi-kernel/blob/master/kernel-qemu-4.4.34-jessie
@@ -84,7 +84,7 @@ def build():
         version = _get_homeassistant_version()
         local("docker run --rm --privileged multiarch/qemu-user-static:register --reset")
         local("docker build --build-arg HOME_ASSISTANT_VERSION={0}"
-              " -t mortenlj/home-assistant-rpi:{0} .".format(version))
+              " -t mortenlj/home-assistant-rpi:{0} -t mortenlj/home-assistant-rpi:latest .".format(version))
         local("docker push mortenlj/home-assistant-rpi")
 
 
@@ -136,4 +136,5 @@ def babushka(reinstall=False):
                 sudo("ln -sf /opt/babushka/bin/babushka.rb babushka")
             if not _executable("babushka"):
                 error("Failed to install babushka!")
-        sudo("babushka main")
+        with shell_env(HOME_ASSISTANT_VERSION=_get_homeassistant_version()):
+            sudo("babushka main")
