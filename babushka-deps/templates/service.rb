@@ -1,12 +1,12 @@
 # Creates a systemd service file from a template
 meta :service do
   template {
+    renderable = Babushka::Renderable.new(service_file(name))
     met? {
-      p = service_file(name).p
-      p.exists? && p.read == template_file(name).p.read
+      renderable.from? template_file('service.erb')
     }
     meet {
-      template_file(name).p.copy service_file(name)
+      renderable.render(template_file('service.erb'), opts.merge(:context => self))
     }
     after {
       shell "systemctl stop #{basename}.service", :sudo => true

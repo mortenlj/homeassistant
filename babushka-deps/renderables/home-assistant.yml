@@ -2,7 +2,7 @@ version: "2.1"
 
 services:
   home-assistant:
-    image: mortenlj/home-assistant-rpi:latest
+    image: mortenlj/home-assistant-rpi:<%= ENV['HOME_ASSISTANT_VERSION'] %>
     networks:
       - web
     labels:

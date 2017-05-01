@@ -1,0 +1,14 @@
+[Unit]
+Description=<%= basename.split(/\W+/).map {|w| w.capitalize}.join(' ') %>
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+RestartSec=3
+ExecStart=/usr/local/bin/docker-compose -f /var/lib/docker-compose/<%= basename %>.yml -p <%= basename %> up --no-color --no-build --abort-on-container-exit
+ExecStop=/usr/local/bin/docker-compose -f /var/lib/docker-compose/<%= basename %>.yml -p <%= basename %> down
+ExecStopPost=/usr/local/bin/docker-compose -f /var/lib/docker-compose/<%= basename %>.yml -p <%= basename %> rm
+
+[Install]
+WantedBy=multi-user.target

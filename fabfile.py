@@ -84,7 +84,7 @@ def build():
         version = _get_homeassistant_version()
         local("docker run --rm --privileged multiarch/qemu-user-static:register --reset")
         local("docker build --build-arg HOME_ASSISTANT_VERSION={0}"
-              " -t mortenlj/home-assistant-rpi:{0} -t mortenlj/home-assistant-rpi:latest .".format(version))
+              " -t mortenlj/home-assistant-rpi:{0} .".format(version))
         local("docker push mortenlj/home-assistant-rpi")
 
 

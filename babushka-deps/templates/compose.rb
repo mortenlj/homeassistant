@@ -1,15 +1,19 @@
+require 'tempfile'
+
 # Creates a config file for docker-compose in a suitable location
 meta :compose do
   template {
     requires 'docker-compose directory'
+
     base, _, _ = name.rpartition('.')
     fname = "#{base}.yml"
+    renderable = Babushka::Renderable.new(compose_file(fname))
+
     met? {
-      p = compose_file(fname).p
-      p.exists? && p.read == template_file(fname).p.read
+      renderable.from? template_file(fname)
     }
     meet {
-      template_file(fname).p.copy compose_file(fname)
+      renderable.render(template_file(fname), opts.merge(:context => self))
     }
   }
 end
