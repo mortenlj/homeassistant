@@ -117,7 +117,7 @@ def rm_docker():
 
 
 @task
-def babushka(reinstall=False):
+def babushka(reinstall=False, version=_get_homeassistant_version()):
     execute(install_ssh_key)
     remote_dir = os.path.join("/tmp", LOCAL_NAME)
     with cd(remote_dir):
@@ -136,5 +136,5 @@ def babushka(reinstall=False):
                 sudo("ln -sf /opt/babushka/bin/babushka.rb babushka")
             if not _executable("babushka"):
                 error("Failed to install babushka!")
-        with shell_env(HOME_ASSISTANT_VERSION=_get_homeassistant_version()):
+        with shell_env(HOME_ASSISTANT_VERSION=version):
             sudo("babushka main")

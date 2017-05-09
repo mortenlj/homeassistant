@@ -12,6 +12,8 @@ services:
       - "SYS_RAWIO"
     devices:
       - "/dev/mem"
+    volumes:
+      - "<%= CONFIG_ROOT %>:/homeassistant"
 
 networks:
   web:

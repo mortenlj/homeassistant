@@ -9,4 +9,3 @@ dep 'main' do
 end
 
 TEMPLATE_ROOT = "#{File.dirname(__FILE__)}/renderables"
-CODE_ROOT = File.dirname(File.dirname(__FILE__))

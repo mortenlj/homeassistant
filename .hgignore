@@ -4,7 +4,7 @@ syntax: glob
 dev-tools/*.img*
 dev-tools/kernel*
 
-services/secrets.yaml
+babushka-deps/renderables/home-assistant/secrets.yaml
 
 ### Linux template
 *~

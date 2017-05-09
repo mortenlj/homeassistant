@@ -13,7 +13,7 @@ meta :compose do
       renderable.from? template_file(fname)
     }
     meet {
-      renderable.render(template_file(fname), opts.merge(:context => self))
+      renderable.render(template_file(fname), :context => self)
     }
   }
 end
