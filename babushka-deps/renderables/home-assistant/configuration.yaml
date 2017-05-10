@@ -61,7 +61,73 @@ device_tracker:
     password: !secret router_password
     track_new_devices: False
     interval_seconds: 60
+notify:
+  - name: fast
+    platform: nma
+    api_key: !secret nma_api_key
+  - name: slow
+    platform: smtp
+    server: smtp.getmail.no
+    sender: mortenjo+home-assistant@ifi.uio.no
+    recipient: mortenjo@ifi.uio.no
+automation:
+  - alias: Update notifications
+    trigger:
+      - platform: state
+        entity_id: updater.updater
+    action:
+      service: notify.slow
+      data_template:
+        title: 'New Home Assistant Release'
+        message: "Home Assistant  {{ states.updater.updater.state }}  is now available."
+  - alias: Sell Funcom
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.funcomol
+      above: 14
+    action:
+      service: notify.slow
+      data_template:
+        title: 'Sell Funcom stock'
+        message: 'The Funcom stock is at {{ states.sensor.funcomol.state }}, you should consider selling'
+  - alias: Garage door is open after sunset
+    trigger:
+      platform: state
+      entity_id: cover.garasjen
+      state: 'open'
+      for:
+        minutes: 10
+    condition:
+      condition: sun
+      after: sunset
+    action:
+      service: notify.fast
+      data:
+        message: 'The Garage door is open after sunset'
+  - alias: Garage door is open when nobody is home
+    trigger:
+      platform: state
+      entity_id: cover.garasjen
+      state: 'open'
+      for:
+        minutes: 10
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: device_tracker.samsunggalaxys7
+          state: not_home
+        - condition: state
+          entity_id: device_tracker.android477cc5c7413e351c
+          state: not_home
+    action:
+      service: notify.fast
+      data:
+        message: 'The Garage door is open and nobody is home'
 group:
+  ' ':
+    entities:
+      - cover.garasjen
   Folk:
     entities:
       - device_tracker.samsunggalaxys7
