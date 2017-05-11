@@ -55,6 +55,9 @@ dep 'home-assistant.config' do
       renderable.render(path)
     end
   }
+  after {
+    shell 'systemctl restart home-assistant.service', :sudo => true
+  }
 end
 
 dep 'home-assistant.config directory' do
