@@ -18,11 +18,12 @@ from fabric.contrib.files import append
 # Download kernel from https://github.com/dhruvvyas90/qemu-rpi-kernel/blob/master/kernel-qemu-4.4.34-jessie
 # Download img from https://blog.hypriot.com/downloads/
 # Adjust image according to https://blogs.msdn.microsoft.com/iliast/2016/11/10/how-to-emulate-raspberry-pi/
-
 BABUSHKA_REPO = "https://github.com/benhoskings/babushka.git"
 BABUSHKA_TAG = "v0.19.1"
 LOCAL_DIR = os.path.abspath(os.path.dirname(__file__))
 LOCAL_PATH, LOCAL_NAME = os.path.split(LOCAL_DIR)
+BUILD_VERSION_FILE = ".build_version"
+
 
 env.roledefs = {
     "test": ["pirate@localhost:5022"],
@@ -86,6 +87,8 @@ def build():
         local("docker build --build-arg HOME_ASSISTANT_VERSION={0}"
               " -t mortenlj/home-assistant-rpi:{0} .".format(version))
         local("docker push mortenlj/home-assistant-rpi")
+        with open(BUILD_VERSION_FILE, "w") as fobj:
+            fobj.write(version)
 
 
 @task
@@ -116,8 +119,15 @@ def rm_docker():
     sudo("docker images mortenlj/home-assistant-rpi -q | xargs docker rmi")
 
 
+def _get_last_built_version():
+    with open(BUILD_VERSION_FILE) as fobj:
+        return fobj.read().strip()
+
+
 @task
-def babushka(reinstall=False, version=_get_homeassistant_version()):
+def babushka(reinstall=False, version=None):
+    if version is None:
+        version = _get_last_built_version()
     execute(install_ssh_key)
     remote_dir = os.path.join("/tmp", LOCAL_NAME)
     with cd(remote_dir):
