@@ -39,7 +39,7 @@ dep 'home-assistant.config' do
 
   def installed_name(path)
     fname = File.basename(path)
-    "#{CONFIG_ROOT}/#{fname}"
+    "#{CONFIG_ROOT}#{fname}"
   end
 
   met? {
@@ -69,4 +69,4 @@ dep 'home-assistant.config directory' do
   }
 end
 
-CONFIG_ROOT = '/var/lib/home-assistant/'
+CONFIG_ROOT = '/etc/home-assistant/'
