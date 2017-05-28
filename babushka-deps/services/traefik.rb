@@ -15,4 +15,46 @@ dep 'traefik.start' do
 end
 
 dep 'traefik.service'
-dep 'traefik.compose'
+
+dep 'traefik.compose' do
+  requires 'traefik.config'
+end
+
+dep 'traefik.config' do
+  requires 'traefik.config directory'
+
+  def files
+    Dir.glob(TEMPLATE_ROOT / 'traefik/*.toml')
+  end
+
+  def installed_name(path)
+    fname = File.basename(path)
+    "/etc/traefik/#{fname}"
+  end
+
+  met? {
+    files.all? do |path|
+      renderable = Babushka::Renderable.new(installed_name(path))
+      renderable.from? path
+    end
+  }
+
+  meet {
+    files.all? do |path|
+      renderable = Babushka::Renderable.new(installed_name(path))
+      renderable.render(path)
+    end
+  }
+  after {
+    shell 'systemctl restart traefik.service', :sudo => true
+  }
+end
+
+dep 'traefik.config directory' do
+  met? {
+    '/etc/traefik/'.p.exists?
+  }
+  meet {
+    shell 'mkdir -p /etc/traefik/'
+  }
+end

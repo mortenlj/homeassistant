@@ -1,0 +1,27 @@
+[file]
+
+# rules
+[backends]
+  [backends.emrys]
+    [backends.emrys.circuitbreaker]
+      expression = "NetworkErrorRatio() > 0.5"
+    [backends.emrys.servers.server1]
+    url = "http://emrys:80"
+  [backends.django]
+    [backends.django.circuitbreaker]
+      expression = "NetworkErrorRatio() > 0.5"
+    [backends.django.servers.server1]
+    url = "http://emrys:8300"
+
+[frontends]
+  [frontends.emrys]
+  backend = "emrys"
+  passHostHeader = true
+    [frontends.emrys.routes.test_1]
+    rule = "Host:ibidem.homeip.net"
+  [frontends.django]
+  backend = "django"
+    [frontends.django.routes.test_1]
+    rule = "Host:ibidem.homeip.net"
+    [frontends.django.routes.test_2]
+    rule = "PathPrefix:/django"
