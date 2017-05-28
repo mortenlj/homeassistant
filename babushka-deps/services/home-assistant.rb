@@ -28,6 +28,9 @@ dep 'home-assistant.docker-build' do
   meet {
     shell 'docker pull "mortenlj/home-assistant-rpi:${HOME_ASSISTANT_VERSION}"', :spinner => true
   }
+  after {
+    shell 'systemctl restart home-assistant.service', :sudo => true
+  }
 end
 
 dep 'home-assistant.config' do
