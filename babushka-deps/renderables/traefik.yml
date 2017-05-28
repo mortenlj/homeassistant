@@ -2,16 +2,18 @@ version: '2.1'
 
 services:
   proxy:
-    image: hypriot/rpi-traefik:v1.1.2
+    image: hypriot/rpi-traefik:v1.2.3
     command: --web --docker --logLevel=DEBUG
     networks:
       - webgateway
     ports:
       - "80:80"
       - "8080:8080"
+      - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/traefik/traefik.toml:/traefik.toml
+      - /etc/traefik/acme.json:/acme.json
 
 networks:
   webgateway:

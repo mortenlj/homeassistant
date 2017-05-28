@@ -1,3 +1,23 @@
+defaultEntryPoints = ["http", "https"]
+
+[entryPoints]
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.tls]
+  [entryPoints.http]
+  address = ":80"
+
+[acme]
+email = "mortenjo+letsencrypt@ifi.uio.no"
+storage = "acme.json"
+entryPoint = "https"
+
+[[acme.domains]]
+   main = "ibidem.homeip.net"
+[[acme.domains]]
+   main = "devnbc.dyndns.org"
+
+
 [file]
 
 # rules

@@ -17,7 +17,8 @@ end
 dep 'traefik.service'
 
 dep 'traefik.compose' do
-  requires 'traefik.config'
+  requires 'traefik.config',
+           'traefik.acme'
 end
 
 dep 'traefik.config' do
@@ -47,6 +48,17 @@ dep 'traefik.config' do
   }
   after {
     shell 'systemctl restart traefik.service', :sudo => true
+  }
+end
+
+dep 'traefik.acme' do
+  requires 'traefik.config directory'
+  acme_file = '/etc/traefik/acme.json'
+  met? {
+    acme_file.p.exists?
+  }
+  meet {
+    shell "touch #{acme_file}"
   }
 end
 
