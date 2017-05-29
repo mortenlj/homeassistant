@@ -55,10 +55,11 @@ dep 'traefik.acme' do
   requires 'traefik.config directory'
   acme_file = '/etc/traefik/acme.json'
   met? {
-    acme_file.p.exists?
+    acme_file.p.exists? && (acme_file.p.stat.mode & 07777 == 0600)
   }
   meet {
     shell "touch #{acme_file}"
+    acme_file.p.chmod(0600)
   }
 end
 
