@@ -3,9 +3,11 @@ defaultEntryPoints = ["http", "https"]
 [entryPoints]
   [entryPoints.https]
   address = ":443"
+  compress = true
     [entryPoints.https.tls]
   [entryPoints.http]
   address = ":80"
+  compress = true
 
 [acme]
 email = "mortenjo+letsencrypt@ifi.uio.no"
