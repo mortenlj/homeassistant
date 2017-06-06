@@ -41,6 +41,7 @@ entryPoint = "https"
     rule = "Host:ibidem.homeip.net"
   [frontends.django]
   backend = "django"
+  passHostHeader = true
     [frontends.django.routes.test_1]
     rule = "Host:ibidem.homeip.net"
     [frontends.django.routes.test_2]
