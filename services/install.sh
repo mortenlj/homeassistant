@@ -21,6 +21,7 @@ ha_req "homeassistant.components.sensor.yahoo_finance"
 ha_req "homeassistant.components.sensor.yr"
 ha_req "homeassistant.components.discovery"
 ha_req "homeassistant.components.updater"
+ha_req "homeassistant.components.device_tracker.linksys_ap"
 
 apk del .build-deps
 
