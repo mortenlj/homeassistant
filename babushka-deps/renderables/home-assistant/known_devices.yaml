@@ -93,3 +93,30 @@ chromecast_2:
   picture:
   track: false
   vendor: Google, Inc.
+
+tv37c5100:
+  hide_if_away: false
+  icon:
+  mac: E4:E0:C5:4F:E3:42
+  name: TV-37C5100
+  picture:
+  track: false
+  vendor: Samsung Electronics Co.,Ltd
+
+hypatia:
+  hide_if_away: false
+  icon:
+  mac: 60:38:E0:BD:A4:00
+  name: Hypatia
+  picture:
+  track: false
+  vendor: Belkin International Inc.
+
+emrys:
+  hide_if_away: false
+  icon:
+  mac: 00:11:32:18:0D:EF
+  name: emrys
+  picture:
+  track: false
+  vendor: Synology Incorporated

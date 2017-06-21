@@ -55,12 +55,8 @@ cover:
         state_pin: 4
         name: Garasjen
 device_tracker:
-  - platform: linksys_ap
+  - platform: linksys_smart
     host: 192.168.1.1
-    username: admin
-    password: !secret router_password
-    verify_ssl: false
-    track_new_devices: False
     interval_seconds: 60
 notify:
   - name: fast
