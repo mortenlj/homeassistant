@@ -28,6 +28,7 @@ frontend:
 config:
 updater:
   reporting: False
+prometheus:
 sensor:
   - platform: yahoo_finance
     symbols:
@@ -91,7 +92,7 @@ automation:
     trigger:
       platform: state
       entity_id: cover.garasjen
-      state: 'open'
+      to: 'open'
       for:
         minutes: 10
     condition:
@@ -105,7 +106,7 @@ automation:
     trigger:
       platform: state
       entity_id: cover.garasjen
-      state: 'open'
+      to: 'open'
       for:
         minutes: 10
     condition:
