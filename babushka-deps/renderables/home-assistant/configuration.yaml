@@ -129,7 +129,7 @@ group:
   Folk:
     entities:
       - device_tracker.samsunggalaxys7
-      - device_tracker.android477cc5c7413e351c
+      - device_tracker.galaxys8
   Aksjer:
     entities:
       - sensor.funcomol

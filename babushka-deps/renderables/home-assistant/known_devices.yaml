@@ -9,9 +9,9 @@ android4b6c2888bd2df8af:
 android477cc5c7413e351c:
   hide_if_away: false
   mac: E8:50:8B:03:E2:97
-  name: Morten
+  name: "Morten (gammel)"
   picture:
-  track: true
+  track: false
   vendor: SAMSUNG ELECTRO-MECHANICS(THAILAND)
 
 homeassistant:
@@ -120,3 +120,39 @@ emrys:
   picture:
   track: false
   vendor: Synology Incorporated
+
+galaxys8:
+  hide_if_away: false
+  icon:
+  mac: 30:07:4D:56:96:46
+  name: Morten
+  picture:
+  track: true
+  vendor: SAMSUNG ELECTRO-MECHANICS(THAILAND)
+
+ipad:
+  hide_if_away: false
+  icon:
+  mac: 70:DE:E2:EB:C6:16
+  name: iPad
+  picture:
+  track: false
+  vendor: Apple, Inc.
+
+brn001ba97640e4:
+  hide_if_away: false
+  icon:
+  mac: 00:1B:A9:76:40:E4
+  name: BRN001BA97640E4
+  picture:
+  track: false
+  vendor: Brother industries, LTD.
+
+13d2d45a06354bf0b2e4149e2526f08d:
+  hide_if_away: false
+  icon:
+  mac: 24:77:03:D2:01:50
+  name: 13d2d45a-0635-4bf0-b2e4-149e2526f08d
+  picture:
+  track: false
+  vendor: Intel Corporate
