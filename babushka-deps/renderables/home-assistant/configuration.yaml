@@ -29,6 +29,8 @@ config:
 updater:
   reporting: False
 prometheus:
+http:
+  api_password: !secret web_password
 sensor:
   - platform: yahoo_finance
     symbols:
