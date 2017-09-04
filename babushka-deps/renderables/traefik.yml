@@ -2,8 +2,8 @@ version: '2.1'
 
 services:
   proxy:
-    image: hypriot/rpi-traefik:v1.2.3
-    command: --web --docker --logLevel=DEBUG
+    image: hypriot/rpi-traefik:v1.3.5
+    command: --web --docker --logLevel=INFO
     networks:
       - webgateway
     ports:
