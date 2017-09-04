@@ -4,7 +4,7 @@ services:
   home-assistant:
     image: mortenlj/home-assistant-rpi:<%= ENV['HOME_ASSISTANT_VERSION'] %>
     networks:
-      - web
+      - "web"
     labels:
       - "traefik.backend=home-assistant"
       - "traefik.frontend.rule=Host:home-assistant"
