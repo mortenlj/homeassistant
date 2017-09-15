@@ -32,6 +32,11 @@ entryPoint = "https"
       expression = "NetworkErrorRatio() > 0.5"
     [backends.django.servers.server1]
     url = "http://emrys:8300"
+  [backends.audio]
+    [backends.audio.circuitbreaker]
+      expression = "NetworkErrorRatio() > 0.5"
+    [backends.audio.servers.server1]
+    url = "http://emrys:80"
 
 [frontends]
   [frontends.emrys]
@@ -45,4 +50,11 @@ entryPoint = "https"
     [frontends.django.routes.test_1]
     rule = "Host:ibidem.homeip.net"
     [frontends.django.routes.test_2]
-    rule = "PathPrefix:/django"
+    rule = "PathPrefix:/django/"
+  [frontends.audio]
+  backend = "audio"
+  passHostHeader = false
+    [frontends.audio.routes.test_1]
+    rule = "Host:ibidem.homeip.net"
+    [frontends.audio.routes.test_2]
+    rule = "PathPrefix:/audio/"
