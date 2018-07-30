@@ -32,11 +32,6 @@ prometheus:
 http:
   api_password: !secret web_password
 sensor:
-  - platform: yahoo_finance
-    symbols:
-      - TSLA
-      - FUNCOM.OL
-      - SCHA.OL
   - platform: systemmonitor
     resources:
       - type: memory_use
@@ -80,16 +75,6 @@ automation:
       data_template:
         title: 'New Home Assistant Release'
         message: "Home Assistant  {{ states.updater.updater.state }}  is now available."
-  - alias: Sell Funcom
-    trigger:
-      platform: numeric_state
-      entity_id: sensor.funcomol
-      above: 14
-    action:
-      service: notify.slow
-      data_template:
-        title: 'Sell Funcom stock'
-        message: 'The Funcom stock is at {{ states.sensor.funcomol.state }}, you should consider selling'
   - alias: Garage door is open after sunset
     trigger:
       platform: state
@@ -132,11 +117,6 @@ group:
     entities:
       - device_tracker.samsunggalaxys7
       - device_tracker.galaxys8
-  Aksjer:
-    entities:
-      - sensor.funcomol
-      - sensor.schaol
-      - sensor.tsla
   Vær:
     entities:
       - sensor.yr_precipitation
