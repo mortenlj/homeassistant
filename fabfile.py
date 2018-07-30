@@ -11,9 +11,14 @@ import requests
 
 from fabric.api import task, local, env, runs_once, execute
 from fabric.utils import error
-from fabric.operations import put, run, sudo
+from fabric.operations import put, run, sudo, get
 from fabric.context_managers import quiet, cd, lcd, shell_env
 from fabric.contrib.files import append
+
+REQUIREMENTS=[
+    "Fabric==1.14.0",
+    "requests==2.19.1"
+]
 
 # Download kernel from https://github.com/dhruvvyas90/qemu-rpi-kernel/blob/master/kernel-qemu-4.4.34-jessie
 # Download img from https://blog.hypriot.com/downloads/
@@ -148,3 +153,13 @@ def babushka(reinstall=False, version=None):
                 error("Failed to install babushka!")
         with shell_env(HOME_ASSISTANT_VERSION=version):
             sudo("babushka main")
+
+
+@task
+def update_known_devices():
+    get("/etc/home-assistant/known_devices.yaml", "babushka-deps/renderables/home-assistant/known_devices.yaml")
+
+
+@task
+def restart_service(name="home-assistant"):
+    sudo("systemctl restart {}.service".format(name))
