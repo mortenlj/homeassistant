@@ -17,7 +17,8 @@ dep 'home-assistant.service'
 
 dep 'home-assistant.compose' do
   requires 'home-assistant.docker-build',
-           'home-assistant.config'
+           'home-assistant.config',
+           'home-assistant.web'
 end
 
 dep 'home-assistant.docker-build' do
@@ -62,6 +63,31 @@ dep 'home-assistant.config' do
     shell 'systemctl restart home-assistant.service', :sudo => true
   }
 end
+
+dep 'home-assistant.web' do
+  requires 'home-assistant.web directory'
+  target = CONFIG_ROOT / 'www/linn.jpeg'
+  source = TEMPLATE_ROOT / 'home-assistant/www/linn.jpeg'
+  met? {
+    target.exists?
+  }
+  meet {
+    FileUtils.cp(source, target)
+  }
+end
+
+
+dep 'home-assistant.web directory' do
+  requires 'home-assistant.config directory'
+  web_dir = CONFIG_ROOT / 'www'
+  met? {
+    web_dir.p.exists?
+  }
+  meet {
+    shell "mkdir -p #{web_dir}"
+  }
+end
+
 
 dep 'home-assistant.config directory' do
   met? {
