@@ -14,8 +14,6 @@ entryPoint = "https"
 
 [[acme.domains]]
    main = "ibidem.homeip.net"
-[[acme.domains]]
-   main = "devnbc.dyndns.org"
 
 
 [file]
