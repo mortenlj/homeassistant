@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -euo pipefail
+
 ha_req() {
     reqs=$(python3 -c "from ${1} import REQUIREMENTS; print(' '.join(REQUIREMENTS))")
     pip3 install ${reqs}

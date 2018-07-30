@@ -1,4 +1,4 @@
-FROM hypriot/rpi-alpine:3.5
+FROM hypriot/rpi-alpine:3.6
 
 COPY install.sh /
 ARG HOME_ASSISTANT_VERSION=0.51.2
