@@ -127,8 +127,8 @@ group:
       - sensor.yr_wind_speed
   System:
     entities:
-      - sensor.average_load_1m
-      - sensor.average_load_5m
-      - sensor.average_load_15m
-      - sensor.ram_free
-      - sensor.ram_use
+      - sensor.load_1m
+      - sensor.load_5m
+      - sensor.load_15m
+      - sensor.memory_free
+      - sensor.memory_use
