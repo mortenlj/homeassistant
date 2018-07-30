@@ -48,6 +48,7 @@ sensor:
       - windDirection
 cover:
   - platform: rpi_gpio
+    relay_time: 1.0
     covers:
       - relay_pin: 17
         state_pin: 4
@@ -56,6 +57,8 @@ device_tracker:
   - platform: linksys_smart
     host: 192.168.1.1
     interval_seconds: 60
+    new_device_defaults:
+      track_new_devices: false
 notify:
   - name: fast
     platform: pushover
