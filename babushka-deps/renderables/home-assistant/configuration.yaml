@@ -58,8 +58,9 @@ device_tracker:
     interval_seconds: 60
 notify:
   - name: fast
-    platform: nma
-    api_key: !secret nma_api_key
+    platform: pushover
+    api_key: !secret pushover_api_key
+    user_key: !secret pushover_user_key
   - name: slow
     platform: smtp
     server: smtp.getmail.no
