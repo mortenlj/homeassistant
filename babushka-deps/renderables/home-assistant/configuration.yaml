@@ -48,7 +48,7 @@ sensor:
       - windDirection
 cover:
   - platform: rpi_gpio
-    relay_time: 1.0
+    relay_time: 0.1
     covers:
       - relay_pin: 17
         state_pin: 4
