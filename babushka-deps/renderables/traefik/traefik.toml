@@ -20,6 +20,11 @@ entryPoint = "https"
 
 # rules
 [backends]
+  [backends.drop]
+    [backends.drop.circuitbreaker]
+      expression = "NetworkErrorRatio() > 0.1"
+    [backends.drop.servers.server1]
+    url = "http://localhost:9999"  # Not real
   [backends.emrys]
     [backends.emrys.circuitbreaker]
       expression = "NetworkErrorRatio() > 0.5"
@@ -37,6 +42,11 @@ entryPoint = "https"
     url = "http://emrys:80"
 
 [frontends]
+  [frontends.blocker]
+  backend = "drop"
+  priority = 10000
+    [frontends.blocker.routes.test_1]
+    rule = "PathPrefix:/.hg/"
   [frontends.emrys]
   backend = "emrys"
   passHostHeader = true
