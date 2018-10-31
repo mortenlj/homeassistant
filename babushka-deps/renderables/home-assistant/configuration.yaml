@@ -47,11 +47,10 @@ sensor:
       - windSpeed
       - windDirection
 cover:
-  - platform: rpi_gpio
-    covers:
-      - relay_pin: 17
-        state_pin: 4
-        name: Garasjen
+  - platform: mqtt
+    name: Garasjen
+    command_topic: "trigger/Hypatia/garage_door"
+    state_topic: "sensor/Hypatia/garage_door"
 device_tracker:
   - platform: linksys_smart
     host: 192.168.1.1
