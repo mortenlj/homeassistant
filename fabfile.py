@@ -24,7 +24,7 @@ REQUIREMENTS=[
 # Download img from https://blog.hypriot.com/downloads/
 # Adjust image according to https://blogs.msdn.microsoft.com/iliast/2016/11/10/how-to-emulate-raspberry-pi/
 BABUSHKA_REPO = "https://github.com/benhoskings/babushka.git"
-BABUSHKA_TAG = "v0.19.1"
+BABUSHKA_TAG = "v0.19.2"
 LOCAL_DIR = os.path.abspath(os.path.dirname(__file__))
 LOCAL_PATH, LOCAL_NAME = os.path.split(LOCAL_DIR)
 BUILD_VERSION_FILE = ".build_version"

@@ -8,4 +8,4 @@ dep 'main' do
            'network-disks'
 end
 
-TEMPLATE_ROOT = "#{File.dirname(__FILE__)}/renderables"
+$template_root = "#{File.dirname(__FILE__)}/renderables"

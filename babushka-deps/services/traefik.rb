@@ -25,7 +25,7 @@ dep 'traefik.config' do
   requires 'traefik.config directory'
 
   def files
-    Dir.glob(TEMPLATE_ROOT / 'traefik/*.toml')
+    Dir.glob($template_root / 'traefik/*.toml')
   end
 
   def installed_name(path)

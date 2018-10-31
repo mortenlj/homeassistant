@@ -1,6 +1,14 @@
 # Creates a systemd service file from a template
 meta :service do
   template {
+    def service_file(fname)
+      "#{SERVICE_ROOT}/#{fname}"
+    end
+
+    def template_file(fname)
+      "#{$template_root}/#{fname}"
+    end
+
     renderable = Babushka::Renderable.new(service_file(name))
     met? {
       renderable.from? template_file('service.erb')
@@ -35,14 +43,6 @@ meta :start do
       shell "systemctl start #{basename}.service", :sudo => true
     }
   }
-end
-
-def service_file(fname)
-  "#{SERVICE_ROOT}/#{fname}"
-end
-
-def template_file(fname)
-  "#{TEMPLATE_ROOT}/#{fname}"
 end
 
 SERVICE_ROOT = '/etc/systemd/system'

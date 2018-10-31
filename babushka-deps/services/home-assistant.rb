@@ -38,7 +38,7 @@ dep 'home-assistant.config' do
   requires 'home-assistant.config directory'
 
   def files
-    Dir.glob(TEMPLATE_ROOT / 'home-assistant/*.yaml')
+    Dir.glob($template_root / 'home-assistant/*.yaml')
   end
 
   def installed_name(path)
@@ -67,7 +67,7 @@ end
 dep 'home-assistant.web' do
   requires 'home-assistant.web directory'
   target = CONFIG_ROOT / 'www/linn.jpeg'
-  source = TEMPLATE_ROOT / 'home-assistant/www/linn.jpeg'
+  source = $template_root / 'home-assistant/www/linn.jpeg'
   met? {
     target.exists?
   }

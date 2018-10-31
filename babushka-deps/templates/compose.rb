@@ -3,6 +3,14 @@ require 'tempfile'
 # Creates a config file for docker-compose in a suitable location
 meta :compose do
   template {
+    def compose_file(fname)
+      "#{COMPOSE_LOCATION}/#{fname}"
+    end
+
+    def template_file(fname)
+      "#{$template_root}/#{fname}"
+    end
+
     requires 'docker-compose directory'
 
     base, _, _ = name.rpartition('.')
@@ -17,13 +25,4 @@ meta :compose do
     }
   }
 end
-
-def compose_file(fname)
-  "#{COMPOSE_LOCATION}/#{fname}"
-end
-
-def template_file(fname)
-  "#{TEMPLATE_ROOT}/#{fname}"
-end
-
 COMPOSE_LOCATION = '/var/lib/docker-compose'
