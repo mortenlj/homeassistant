@@ -26,6 +26,8 @@ ha_req "homeassistant.components.discovery"
 ha_req "homeassistant.components.updater"
 ha_req "homeassistant.components.prometheus"
 
+ha_req "homeassistant.auth.mfa_modules.totp"
+
 apk del .build-deps
 
 rm -rf /var/cache/apk/*
