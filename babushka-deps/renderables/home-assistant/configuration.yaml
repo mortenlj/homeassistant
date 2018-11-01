@@ -31,6 +31,8 @@ updater:
 prometheus:
 http:
   api_password: !secret web_password
+mqtt:
+  broker: emrys
 sensor:
   - platform: systemmonitor
     resources:
