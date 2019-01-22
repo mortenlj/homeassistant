@@ -11,6 +11,9 @@ defaultEntryPoints = ["http", "https"]
 email = "mortenjo+letsencrypt@ifi.uio.no"
 storage = "acme.json"
 entryPoint = "https"
+  [acme.httpChallenge]
+  entryPoint = "http"
+
 
 [[acme.domains]]
    main = "ibidem.homeip.net"
