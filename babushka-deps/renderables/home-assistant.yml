@@ -13,7 +13,7 @@ services:
     devices:
       - "/dev/mem"
     volumes:
-      - "<%= CONFIG_ROOT %>:/home-assistant"
+      - "/etc/home-assistant:/home-assistant"
 
 networks:
   web:
