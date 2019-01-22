@@ -121,7 +121,8 @@ def deploy_code():
 def rm_docker():
     execute(install_ssh_key)
     sudo("systemctl stop home-assistant.service")
-    sudo("docker images mortenlj/home-assistant-rpi -q | xargs docker rmi")
+    sudo("docker images mortenlj/home-assistant-rpi -q | xargs --no-run-if-empty docker rmi")
+    sudo("rm /var/lib/docker-compose/home-assistant.yml")
 
 
 def _get_last_built_version():
