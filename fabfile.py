@@ -3,19 +3,20 @@
 from __future__ import absolute_import, print_function, unicode_literals
 
 import os
-import time
+import shutil
+import tarfile
 import tempfile
+import time
 from fnmatch import fnmatch
 
 import requests
-
 from fabric.api import task, local, env, runs_once, execute
-from fabric.utils import error
-from fabric.operations import put, run, sudo, get
 from fabric.context_managers import quiet, cd, lcd, shell_env
 from fabric.contrib.files import append
+from fabric.operations import put, run, sudo, get
+from fabric.utils import error
 
-REQUIREMENTS=[
+REQUIREMENTS = [
     "Fabric==1.14.0",
     "requests==2.19.1"
 ]
@@ -28,7 +29,7 @@ BABUSHKA_TAG = "v0.19.2"
 LOCAL_DIR = os.path.abspath(os.path.dirname(__file__))
 LOCAL_PATH, LOCAL_NAME = os.path.split(LOCAL_DIR)
 BUILD_VERSION_FILE = ".build_version"
-
+WHEEL_CACHE = "services/.wheel_cache"
 
 env.roledefs = {
     "test": ["pirate@localhost:5022"],
@@ -88,12 +89,35 @@ def install_ssh_key():
 def build():
     with lcd("services"):
         version = _get_homeassistant_version()
+        if not os.path.isdir(WHEEL_CACHE):
+            os.makedirs(WHEEL_CACHE)
         local("docker run --rm --privileged multiarch/qemu-user-static:register --reset")
         local("docker build --build-arg HOME_ASSISTANT_VERSION={0}"
               " -t mortenlj/home-assistant-rpi:{0} .".format(version))
         local("docker push mortenlj/home-assistant-rpi")
+        _extract_layers(version)
         with open(BUILD_VERSION_FILE, "w") as fobj:
             fobj.write(version)
+
+
+def _extract_layers(version):
+    save = tempfile.mkdtemp(prefix="dockersave")
+    local("docker image save mortenlj/home-assistant-rpi:{} -o {}/image.tar".format(version, save))
+    with tarfile.open(os.path.join(save, "image.tar")) as image_tar:
+        image_tar.extractall(save, (ti for ti in image_tar if ti.name.endswith("layer.tar")))
+    for dirpath, dirnames, filenames in os.walk(save):
+        for filename in filenames:
+            if filename == "layer.tar":
+                filepath = os.path.join(dirpath, filename)
+                with tarfile.open(filepath) as tar:
+                    members = [ti for ti in tar if os.path.splitext(ti.name)[-1] == ".whl"]
+                    print("Found {} wheels in {}".format(len(members), filepath))
+                    for member in members:
+                        src = tar.extractfile(member)
+                        dst_path = os.path.join(WHEEL_CACHE, os.path.basename(member.name))
+                        print("Extracting {} to {}".format(member.name, dst_path))
+                        with open(dst_path, "wb") as dst:
+                            shutil.copyfileobj(src, dst)
 
 
 @task
@@ -105,7 +129,8 @@ def deploy_code():
 
     try:
         tar_path = os.path.join(tmp_folder, tar_file)
-        local("tar -czf %s --exclude=dev-tools --exclude-vcs-ignores --exclude-vcs -C %s %s" % (tar_path, LOCAL_PATH, LOCAL_NAME))
+        local("tar -czf %s --exclude=dev-tools --exclude-vcs-ignores --exclude-vcs -C %s %s" % (
+        tar_path, LOCAL_PATH, LOCAL_NAME))
         put(tar_path, target_tar)
         with cd("/tmp"):
             try:
