@@ -10,7 +10,7 @@ import time
 from fnmatch import fnmatch
 
 import requests
-from fabric.api import task, local, env, runs_once, execute
+from fabric.api import task, local, env, runs_once, execute, hosts
 from fabric.context_managers import quiet, cd, lcd, shell_env
 from fabric.contrib.files import append
 from fabric.operations import put, run, sudo, get
@@ -141,6 +141,36 @@ def deploy_code():
     finally:
         local("rm -rf %s" % tmp_folder)
 
+
+@task
+@hosts("emrys")
+def deploy_configuration():
+    tar_file = "homeassistant_configuration.tar.gz"
+    target_dir = "/volume1/k3s_persistent_volumes/homeassistant"
+    target_tar = os.path.join("/k3s_persistent_volumes/homeassistant", tar_file)
+    tmp_folder = tempfile.mkdtemp()
+    source_path = os.path.join(LOCAL_DIR, "babushka-deps", "renderables", "home-assistant")
+
+    try:
+        tar_path = os.path.join(tmp_folder, tar_file)
+        local("tar -czf %s --exclude-vcs -C %s ." % (tar_path,  source_path))
+        run("mkdir -p %s" % target_dir)
+        put(tar_path, target_tar)
+        with cd(target_dir):
+            try:
+                run("tar -xzf %s" % tar_file)
+            finally:
+                run("rm -f %s" % tar_file)
+    finally:
+        local("rm -rf %s" % tmp_folder)
+
+
+@task
+@hosts("root@emrys")
+def _fix_configuration_ownership():
+    target_dir = "/volume1/k3s_persistent_volumes/homeassistant"
+    run("chown -R root:root %s" % target_dir)
+    run("chmod -R 775 %s" % target_dir)
 
 @task
 def rm_docker():
