@@ -1,4 +1,4 @@
-FROM hypriot/rpi-alpine:3.6
+FROM hypriot/rpi-alpine:3.6@sha256:c89a891d0b0ab57709bc6573434c7eb3b047fa444ecc2990a4d07adda0cfe0a8
 
 RUN apk update && \
     apk upgrade && \
